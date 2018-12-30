@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        #t0, #t1, #t2, #t3, #t4, #t5, #t6, #t7, #t8, #t9, #t10, #t11{
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 10px solid #ddd;
+            height: 81%;
+            margin-bottom: 2%;
+        }
+        .tr1 {
+            border: 10px solid #ffd800;
+        }
+		.rowx {
+            border-bottom: 5px solid gold;
+        }
+		.colu {
+            border-right: 5px solid red;
+			height: 27vh;
+			overflow: auto;
+			padding: 20px;
+			/*align-content: center;
+			min-width: 380px;*/
+        }
+        .col {
+            height: 27vh;
+            overflow: auto;
+            padding: 20px;
+            /*align-content: center;
+			min-width: 380px;*/
+        }
+        table {
+            margin: 12px;
+        }
+        th {
+            border: dotted;
+        }
+        img {
+            /*display: inline-block;*/
+            visibility: visible;
+            max-width: 100%;
+            max-height: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+            display: block;
+            /*margin-left: auto;*/
+            /*margin-right: auto;*/
+            /*margin-bottom: 30px;*/
+        }
+        #inline {
+            margin: 5px;
+            display: inline-block;
+            width: 4%;
+        }
+        #but1 {
+            background-color: #555555;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 8px 2px;
+            cursor: pointer;
+        }
+        #hi2 {
+            color: aqua;
+            display: inline-block;
+            padding-left: 16px;
+        }
+
+        .rowx, .colu, .col {
+            text-align: center;
+            vertical-align: middle;
+            line-height: 20vh;
+            font-size: 10vh;  
+            overflow: hidden;
+        }
+
+        .x {
+            opacity: 0.75;
+            -ms-transform: translate(0px,-20vh); /* IE 9 */
+            -webkit-transform: translate(0px,-20vh); /* Safari */
+            transform: translate(0px,-20vh); /* Standard syntax */
+        }
+        
+        @media only screen and (max-width: 700px) {
+            .rowx, .colu, .col {
+                font-size: 6vh;  
+            }
+
+            .x {
+                opacity: 0.75;
+                -ms-transform: scale(1.2,1.2); /* IE 9 */
+                -webkit-transform: scale(1.2,1.2); /* Safari */
+                transform: scale(1.2,1.2); /* Standard syntax */
+                -ms-transform: translate(0px,-20vh); /* IE 9 */
+                -webkit-transform: translate(0px,-20vh); /* Safari */
+                transform: translate(0px,-20vh); /* Standard syntax */
+            }
+        }
+
+		body{
+			 padding-left: 35px;
+		}
+    </style>
+    <meta charset="UTF-8">
+    <title>Nash Equilibrium</title>
+	<link rel="shortcut icon" sizes="16x22" type="image/png" href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/John_Forbes_Nash%2C_Jr._by_Peter_Badge.jpg/330px-John_Forbes_Nash%2C_Jr._by_Peter_Badge.jpg" />
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <img id = "inline" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/John_Forbes_Nash%2C_Jr._by_Peter_Badge.jpg/330px-John_Forbes_Nash%2C_Jr._by_Peter_Badge.jpg" alt="Nash The Stash">
+    <button id="but1" type="button" onclick="reset()">Random Again</button> 
+
+<!-- style="width:380px" for each sub-div -->
+
+<div id="t0" class="row">
+    <div id="01" class="rowx colu col-xs-4" onclick="cellOnclick1('1')"></div>
+    <div id="02" class="rowx colu col-xs-4" onclick="cellOnclick1('2')"></div>
+    <div id="03" class="rowx col" onclick="cellOnclick1('3')"></div>
+
+	<div id="04" class="rowx colu col-xs-4" onclick="cellOnclick1('4')"></div>
+    <div id="05" class="rowx colu col-xs-4" onclick="cellOnclick1('5')"></div>
+    <div id="06" class="rowx col" onclick="cellOnclick1('6')"></div>
+
+   	<div id="07" class="colu col-xs-4" onclick="cellOnclick1('7')"></div>
+    <div id="08" class="colu col-xs-4" onclick="cellOnclick1('8')"></div>
+    <div id="09" class="col" onclick="cellOnclick1('9')"></div>
+    
+</div>
+
+
+    <!--<div class="row">
+        <div class="col-xs-12">-->
+            <!--<table id="t2">
+                <tr>
+                    <th style="padding-right: 6px; padding-left: 6px;">Player<br />X</th>
+                    <th style="padding-right: 6px; padding-left: 6px;">Player<br />O</th>
+                </tr>
+                <tr>
+                    <td style="padding-right: 6px; padding-left: 6px; border: dotted; color: green; border-color: black;">0</td>
+                    <td style="padding-right: 6px; padding-left: 6px; border: dotted; color: green; border-color: black;">0</td>
+                </tr>
+            </table>-->
+        <!--</div>
+    </div>-->
+    <script type="text/javascript">
+        var data1 = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
+        Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
+        Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
+        var data2 = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
+        Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
+        Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
+
+        var countTables = 0;//
+
+        var i;
+        window.onload = () => {
+
+            for(i = 0 ; i < data1.length; i++){
+                var textnode1 = document.createTextNode(data1[i].toString());
+                var textnode2 = document.createTextNode(' , ');
+                var textnode3 = document.createTextNode(data2[i].toString());
+                var span1 = document.createElement('span');
+                span1.appendChild(textnode1);
+                var span2 = document.createElement('span');
+                span2.appendChild(textnode3);
+                document.getElementById('0' + (i+1)).appendChild(span1);// add a number to a div 
+                document.getElementById('0' + (i+1)).appendChild(textnode2);// add a number to a div 
+                document.getElementById('0' + (i+1)).appendChild(span2);// add a number to a div 
+            }
+
+            //thumbMethod(1, data1, data2, 't' + countTables);//
+
+            countTables++;
+
+            setTimeout(() => {
+                draw3On3(data1, data2);
+                setTimeout(() => {
+                    draw3On2([data1[0], data1[1], data1[2], data1[3], data1[4], data1[5]], [data2[0], data2[1], data2[2], data2[3], data2[4], data2[5]]);
+                    setTimeout(() => {
+                        draw2On3([data1[0], data1[1], data1[2], data1[3], data1[4], data1[5]], [data2[0], data2[1], data2[2], data2[3], data2[4], data2[5]]);
+                        draw2On2([data1[0], data1[1], data1[2], data1[3]], [data2[0], data2[1], data2[2], data2[3]]);
+                        draw3On1([data1[0], data1[1], data1[2]], [data2[0], data2[1], data2[2]]);
+                        draw1On3([data1[0], data1[1], data1[2]], [data2[0], data2[1], data2[2]]);
+                        draw2On1([data1[0], data1[1]], [data2[0], data2[1]]);
+                        draw1On2([data1[0], data1[1]], [data2[0], data2[1]]);
+                    }, 2000);
+                }, 2000);
+            }, 2000);
+
+            //removeDominatedStrategies(-1);
+
+            
+
+        }
+        
+        function draw3On3(data01, data02){
+            var tbl = document.createElement('div');
+            tbl.setAttribute("class", "row");
+            tbl.setAttribute("id", "t" + countTables);
+            document.body.appendChild(tbl);
+            for(var i=0; i < data1.length; i++){
+                var tile = document.createElement('div');
+                if(i % 3 !== 2){
+                    tile.setAttribute("class", "rowx colu col-xs-4");
+                }else {
+                    tile.setAttribute("class", "rowx col");
+                }
+                tile.setAttribute("id", i+1);
+        
+                var textnode1 = document.createTextNode(data01[i].toString());
+                var textnode2 = document.createTextNode(' , ');
+                var textnode3 = document.createTextNode(data02[i].toString());
+                var span1 = document.createElement('span');
+                span1.appendChild(textnode1);
+                var span2 = document.createElement('span');
+                span2.appendChild(textnode3);
+                tile.appendChild(span1);// add a number to a div 
+                tile.appendChild(textnode2);// add a number to a div 
+                tile.appendChild(span2);// add a number to a div 
+
+                document.getElementById('t1').appendChild(tile);
+            }
+
+            countTables++;
+            removeDominatedStrategies(-1, data01, data02);
+        }
+
+        //draw2On3([data1[0], data1[1], data1[2], data1[3], data1[4], data1[5]], [data2[0], data2[1], data2[2], data2[3], data2[4], data2[5]]);
+        
+        //draw3On2([data1[0], data1[1], data1[2], data1[3], data1[4], data1[5]], [data2[0], data2[1], data2[2], data2[3], data2[4], data2[5]]);
+
+        var countThisTbl = 0;
+
+
+        function draw3On2(data1, data2){// need to use splice.. another parameter is the 'flag' from removeDominatedStrategies
+            var tbl = document.createElement('div');
+            tbl.setAttribute("class", "row");
+            tbl.setAttribute("id", "t" + countTables);
+            document.body.appendChild(tbl);
+            for(var i=0; i < 3; i++) {
+                var tile = document.createElement('div');
+                tile.setAttribute("class", "rowx colu col-xs-6");
+                tile.setAttribute("id", (countTables * i).toString() + i);
+                tbl.appendChild(tile);
+                var textnode1 = document.createTextNode(data1[2 * i].toString());
+                var textnode2 = document.createTextNode(' , ');
+                var textnode3 = document.createTextNode(data2[2 * i].toString());
+                var span1 = document.createElement('span');
+                span1.appendChild(textnode1);
+                var span2 = document.createElement('span');
+                span2.appendChild(textnode3);
+                tile.appendChild(span1);// add a number to a div 
+                tile.appendChild(textnode2);// add a number to a div 
+                tile.appendChild(span2);// add a number to a div 
+
+                var tile = document.createElement('div');
+                tile.setAttribute("class", "rowx col col-xs-6");
+                tile.setAttribute("id", (countTables * i + 1).toString() + i);
+                tbl.appendChild(tile);
+                var textnode1 = document.createTextNode(data1[2 * i + 1].toString());
+                var textnode2 = document.createTextNode(' , ');
+                var textnode3 = document.createTextNode(data2[2 * i + 1].toString());
+                var span1 = document.createElement('span');
+                span1.appendChild(textnode1);
+                var span2 = document.createElement('span');
+                span2.appendChild(textnode3);
+                tile.appendChild(span1);// add a number to a div 
+                tile.appendChild(textnode2);// add a number to a div 
+                tile.appendChild(span2);// add a number to a div 
+            }
+            //countTables++;
+            countThisTbl++;
+            if(countThisTbl === 1)
+                removeDominatedStrategies3On2(-1, data1, data2)
+            else
+                countThisTbl = 0;
+        }
+
+        function draw2On3(data1, data2){
+            var tbl = document.createElement('div');
+            tbl.setAttribute("class", "row");
+            tbl.setAttribute("id", "t" + countTables);
+            document.body.appendChild(tbl);
+            for(var i=0; i < 2; i++) {
+                var tile = document.createElement('div');
+                tile.setAttribute("class", "rowx colu col-xs-4");
+                tile.setAttribute("id", (3 * i).toString() + i + i);
+                tbl.appendChild(tile);
+                var textnode1 = document.createTextNode(data1[3 * i].toString());
+                var textnode2 = document.createTextNode(' , ');
+                var textnode3 = document.createTextNode(data2[3 * i].toString());
+                var span1 = document.createElement('span');
+                span1.appendChild(textnode1);
+                var span2 = document.createElement('span');
+                span2.appendChild(textnode3);
+                tile.appendChild(span1);// add a number to a div 
+                tile.appendChild(textnode2);// add a number to a div 
+                tile.appendChild(span2);// add a number to a div 
+
+                var tile = document.createElement('div');
+                tile.setAttribute("class", "rowx colu col-xs-4");
+                tile.setAttribute("id", (3 * i + 1).toString() + i + i);
+                tbl.appendChild(tile);
+                var textnode1 = document.createTextNode(data1[3 * i + 1].toString());
+                var textnode2 = document.createTextNode(' , ');
+                var textnode3 = document.createTextNode(data2[3 * i + 1].toString());
+                var span1 = document.createElement('span');
+                span1.appendChild(textnode1);
+                var span2 = document.createElement('span');
+                span2.appendChild(textnode3);
+                tile.appendChild(span1);// add a number to a div 
+                tile.appendChild(textnode2);// add a number to a div 
+                tile.appendChild(span2);// add a number to a div 
+
+                var tile = document.createElement('div');
+                tile.setAttribute("class", "rowx col");
+                tile.setAttribute("id", (3 * i + 2).toString() + i + i);
+                tbl.appendChild(tile);
+                var textnode1 = document.createTextNode(data1[3 * i + 2].toString());
+                var textnode2 = document.createTextNode(' , ');
+                var textnode3 = document.createTextNode(data2[3 * i + 2].toString());
+                var span1 = document.createElement('span');
+                span1.appendChild(textnode1);
+                var span2 = document.createElement('span');
+                span2.appendChild(textnode3);
+                tile.appendChild(span1);// add a number to a div 
+                tile.appendChild(textnode2);// add a number to a div 
+                tile.appendChild(span2);// add a number to a div 
+            }
+            //countTables++;
+            countThisTbl++;
+            if(countThisTbl === 1)
+                removeDominatedStrategies2On3(-1, data1, data2);
+            else
+                countThisTbl = 0;
+        }
+
+        function draw2On2(data1, data2){
+            var tbl = document.createElement('div');
+            tbl.setAttribute("class", "row");
+            tbl.setAttribute("id", "t" + countTables);
+            document.body.appendChild(tbl);
+            for(var i=0; i < 2; i++) {
+                var tile = document.createElement('div');
+                tile.setAttribute("class", "rowx colu col-xs-6");
+                tile.setAttribute("id", (countTables * (i + 1)).toString() + i + i + i);
+                tbl.appendChild(tile);
+                var textnode1 = document.createTextNode(data1[2 * i].toString());
+                var textnode2 = document.createTextNode(' , ');
+                var textnode3 = document.createTextNode(data2[2 * i].toString());
+                var span1 = document.createElement('span');
+                span1.appendChild(textnode1);
+                var span2 = document.createElement('span');
+                span2.appendChild(textnode3);
+                tile.appendChild(span1);// add a number to a div 
+                tile.appendChild(textnode2);// add a number to a div 
+                tile.appendChild(span2);// add a number to a div 
+
+                var tile = document.createElement('div');
+                tile.setAttribute("class", "rowx col col-xs-6");
+                tile.setAttribute("id", (countTables * (i + 1)).toString() + i + i + (i + 1));
+                tbl.appendChild(tile);
+                var textnode1 = document.createTextNode(data1[2 * i + 1].toString());
+                var textnode2 = document.createTextNode(' , ');
+                var textnode3 = document.createTextNode(data2[2 * i + 1].toString());
+                var span1 = document.createElement('span');
+                span1.appendChild(textnode1);
+                var span2 = document.createElement('span');
+                span2.appendChild(textnode3);
+                tile.appendChild(span1);// add a number to a div 
+                tile.appendChild(textnode2);// add a number to a div 
+                tile.appendChild(span2);// add a number to a div 
+            }
+            //countTables++;
+            countThisTbl++;
+            if(countThisTbl === 1)
+                removeDominatedStrategies2On2(-1, data1, data2);
+            else
+                countThisTbl = 0;
+        }
+
+        function draw3On1(data1, data2){
+            var tbl = document.createElement('div');
+            tbl.setAttribute("class", "row");
+            tbl.setAttribute("id", "t" + countTables);
+            document.body.appendChild(tbl);
+            for(var i=0; i < 3; i++) {
+                var tile = document.createElement('div');
+                tile.setAttribute("class", "rowx col");
+                tile.setAttribute("id", (countTables * (i + 1)).toString() + i + i + i + i);
+                tbl.appendChild(tile);
+                var textnode1 = document.createTextNode(data1[i].toString());
+                var textnode2 = document.createTextNode(' , ');
+                var textnode3 = document.createTextNode(data2[i].toString());
+                var span1 = document.createElement('span');
+                span1.appendChild(textnode1);
+                var span2 = document.createElement('span');
+                span2.appendChild(textnode3);
+                tile.appendChild(span1);// add a number to a div 
+                tile.appendChild(textnode2);// add a number to a div 
+                tile.appendChild(span2);// add a number to a div 
+            }
+            //countTables++;
+            countThisTbl++;
+            if(countThisTbl === 1)
+                removeDominatedStrategies3On1(-1, data1, data2);
+            else
+                countThisTbl = 0;
+        }
+
+        function draw1On3(data1, data2){
+            var tbl = document.createElement('div');
+            tbl.setAttribute("class", "row");
+            tbl.setAttribute("id", "t" + countTables);
+            document.body.appendChild(tbl);
+            for(var i=0; i < data1.length; i++) {
+                var tile = document.createElement('div');
+                if(i !== data1.length - 1){
+                    tile.setAttribute("class", "rowx colu col-xs-4");
+                }else {
+                    tile.setAttribute("class", "rowx col");
+                }  
+                tile.setAttribute("id", (countTables * (i + 1)).toString() + i + i + i + i + i);
+                tbl.appendChild(tile);
+                var textnode1 = document.createTextNode(data1[i].toString());
+                var textnode2 = document.createTextNode(' , ');
+                var textnode3 = document.createTextNode(data2[i].toString());
+                var span1 = document.createElement('span');
+                span1.appendChild(textnode1);
+                var span2 = document.createElement('span');
+                span2.appendChild(textnode3);
+                tile.appendChild(span1);// add a number to a div 
+                tile.appendChild(textnode2);// add a number to a div 
+                tile.appendChild(span2);// add a number to a div 
+            }
+            //countTables++;
+            countThisTbl++;
+            if(countThisTbl === 1)
+                removeDominatedStrategies1On3(-1, data1, data2);
+            else
+                countThisTbl = 0;
+        }
+
+        function draw2On1(data1, data2){
+            var tbl = document.createElement('div');
+            tbl.setAttribute("class", "row");
+            tbl.setAttribute("id", "t" + countTables);
+            document.body.appendChild(tbl);
+            for(var i=0; i < 2; i++) {
+                var tile = document.createElement('div');
+                tile.setAttribute("class", "rowx col");
+                tile.setAttribute("id", (countTables * (i + 1)).toString() + i + i + i + i + i + i);
+                tbl.appendChild(tile);
+                var textnode1 = document.createTextNode(data1[i].toString());
+                var textnode2 = document.createTextNode(' , ');
+                var textnode3 = document.createTextNode(data2[i].toString());
+                var span1 = document.createElement('span');
+                span1.appendChild(textnode1);
+                var span2 = document.createElement('span');
+                span2.appendChild(textnode3);
+                tile.appendChild(span1);// add a number to a div 
+                tile.appendChild(textnode2);// add a number to a div 
+                tile.appendChild(span2);// add a number to a div 
+            }
+            //countTables++;
+            countThisTbl++;
+            if(countThisTbl === 1)
+                removeDominatedStrategies2On1(-1, data1, data2);
+            else
+                countThisTbl = 0;
+        }
+
+        function draw1On2(data1, data2){
+            var tbl = document.createElement('div');
+            tbl.setAttribute("class", "row");
+            tbl.setAttribute("id", "t" + countTables);
+            document.body.appendChild(tbl);
+            for(var i=0; i < data1.length; i++) {
+                var tile = document.createElement('div');
+                if(i !== data1.length - 1){
+                    tile.setAttribute("class", "rowx colu col-xs-6");
+                }else {
+                    tile.setAttribute("class", "rowx col");
+                }  
+                tile.setAttribute("id", (countTables * (i + 1)).toString() + i + i + i + i + i + i + i);
+                tbl.appendChild(tile);
+                var textnode1 = document.createTextNode(data1[i].toString());
+                var textnode2 = document.createTextNode(' , ');
+                var textnode3 = document.createTextNode(data2[i].toString());
+                var span1 = document.createElement('span');
+                span1.appendChild(textnode1);
+                var span2 = document.createElement('span');
+                span2.appendChild(textnode3);
+                tile.appendChild(span1);// add a number to a div 
+                tile.appendChild(textnode2);// add a number to a div 
+                tile.appendChild(span2);// add a number to a div 
+            }
+            //countTables++;
+            countThisTbl++;
+            if(countThisTbl === 1)
+                removeDominatedStrategies1On2(-1, data1, data2);
+            else
+                countThisTbl = 0;
+        }
+
+        function removeDominatedStrategies(flag, data1, data2){
+            if(flag < 1 && (data1[0] < data1[3] && data1[1] < data1[4] && data1[2] < data1[5]) ||
+                (data1[0] < data1[6] && data1[1] < data1[7] && data1[2] < data1[8])){
+                    var x = document.createElement("IMG");// create an image
+                    x.setAttribute("class", "x");
+                    x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                    x.setAttribute("alt", "X Factor");
+                    var y = document.createElement("IMG");// create an image
+                    y.setAttribute("class", "x");
+                    y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                    y.setAttribute("alt", "X Factor");
+                    var z = document.createElement("IMG");// create an image
+                    z.setAttribute("class", "x");
+                    z.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                    z.setAttribute("alt", "X Factor");
+                    document.getElementById(1).appendChild(x);// add a pic to a div 
+                    document.getElementById(2).appendChild(y);// add a pic to a div 
+                    document.getElementById(3).appendChild(z);// add a pic to a div 
+                    //setTimeout(removeDominatedStrategies(1), 1000);//
+            }
+
+            if(flag < 2 && (data2[0] < data2[1] && data2[3] < data2[4] && data2[6] < data2[7]) ||
+                (data2[0] < data2[2] && data2[3] < data2[5] && data2[6] < data2[8])){
+                    var x = document.createElement("IMG");// create an image
+                    x.setAttribute("class", "x");
+                    x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                    x.setAttribute("alt", "X Factor");
+                    var y = document.createElement("IMG");// create an image
+                    y.setAttribute("class", "x");
+                    y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                    y.setAttribute("alt", "X Factor");
+                    var z = document.createElement("IMG");// create an image
+                    z.setAttribute("class", "x");
+                    z.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                    z.setAttribute("alt", "X Factor");
+                    document.getElementById(1).appendChild(x);// add a pic to a div 
+                    document.getElementById(4).appendChild(y);// add a pic to a div 
+                    document.getElementById(7).appendChild(z);// add a pic to a div 
+                    //setTimeout(removeDominatedStrategies(2), 1000);//
+            }
+
+            if(flag < 3 && (data1[3] < data1[0] && data1[4] < data1[1] && data1[5] < data1[2]) ||
+                (data1[3] < data1[6] && data1[4] < data1[7] && data1[5] < data1[8])){
+                    var x = document.createElement("IMG");// create an image
+                    x.setAttribute("class", "x");
+                    x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                    x.setAttribute("alt", "X Factor");
+                    var y = document.createElement("IMG");// create an image
+                    y.setAttribute("class", "x");
+                    y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                    y.setAttribute("alt", "X Factor");
+                    var z = document.createElement("IMG");// create an image
+                    z.setAttribute("class", "x");
+                    z.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                    z.setAttribute("alt", "X Factor");
+                    document.getElementById(4).appendChild(x);// add a pic to a div 
+                    document.getElementById(5).appendChild(y);// add a pic to a div 
+                    document.getElementById(6).appendChild(z);// add a pic to a div 
+                    //setTimeout(removeDominatedStrategies(3), 1000);//
+            }
+
+            if(flag < 4 && (data2[1] < data2[0] && data2[4] < data2[3] && data2[7] < data2[6]) ||
+            (data2[1] < data2[2] && data2[4] < data2[5] && data2[7] < data2[8])){
+                var x = document.createElement("IMG");// create an image
+                x.setAttribute("class", "x");
+                x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                x.setAttribute("alt", "X Factor");
+                var y = document.createElement("IMG");// create an image
+                y.setAttribute("class", "x");
+                y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                y.setAttribute("alt", "X Factor");
+                var z = document.createElement("IMG");// create an image
+                z.setAttribute("class", "x");
+                z.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                z.setAttribute("alt", "X Factor");
+                document.getElementById(2).appendChild(x);// add a pic to a div 
+                document.getElementById(5).appendChild(y);// add a pic to a div 
+                document.getElementById(8).appendChild(z);// add a pic to a div 
+                //setTimeout(removeDominatedStrategies(4), 1000);//
+            }
+
+            if(flag < 5 && (data1[6] < data1[0] && data1[7] < data1[1] && data1[8] < data1[2]) ||
+            (data1[6] < data1[3] && data1[7] < data1[4] && data1[8] < data1[5])){
+                var x = document.createElement("IMG");// create an image
+                x.setAttribute("class", "x");
+                x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                x.setAttribute("alt", "X Factor");
+                var y = document.createElement("IMG");// create an image
+                y.setAttribute("class", "x");
+                y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                y.setAttribute("alt", "X Factor");
+                var z = document.createElement("IMG");// create an image
+                z.setAttribute("class", "x");
+                z.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                z.setAttribute("alt", "X Factor");
+                document.getElementById(7).appendChild(x);// add a pic to a div 
+                document.getElementById(8).appendChild(y);// add a pic to a div 
+                document.getElementById(9).appendChild(z);// add a pic to a div 
+                //setTimeout(removeDominatedStrategies(5), 1000);//
+            }
+
+            if(flag < 6 && (data2[2] < data2[0] && data2[5] < data2[3] && data2[8] < data2[6]) ||
+            (data2[2] < data2[1] && data2[5] < data2[4] && data2[8] < data2[7])){
+                var x = document.createElement("IMG");// create an image
+                x.setAttribute("class", "x");
+                x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                x.setAttribute("alt", "X Factor");
+                var y = document.createElement("IMG");// create an image
+                y.setAttribute("class", "x");
+                y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                y.setAttribute("alt", "X Factor");
+                var z = document.createElement("IMG");// create an image
+                z.setAttribute("class", "x");
+                z.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                z.setAttribute("alt", "X Factor");
+                document.getElementById(3).appendChild(x);// add a pic to a div 
+                document.getElementById(6).appendChild(y);// add a pic to a div 
+                document.getElementById(9).appendChild(z);// add a pic to a div 
+                //setTimeout(removeDominatedStrategies(6), 1000);//
+            }
+            console.log(countTables - 1);
+
+            thumbMethod(1, data1, data2, 't' + (countTables - 1));//
+        }
+
+        function removeDominatedStrategies3On2(flag, data1, data2){
+            countTables++;
+            draw3On2(data1, data2);
+            var elementId;
+            var tbl = document.getElementById('t' + countTables);
+            if((data1[0] < data1[2] && data1[1] < data1[3]) || (data1[0] < data1[4] && data1[1] < data1[5])){
+                var x = document.createElement("IMG");// create an image
+                x.setAttribute("class", "x");
+                x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                x.setAttribute("alt", "X Factor");
+                var y = document.createElement("IMG");// create an image
+                y.setAttribute("class", "x");
+                y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                y.setAttribute("alt", "X Factor");
+                //(countTables * i).toString() + i
+                elementId = (countTables * 0).toString() + '0';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(x);
+                    }
+                })
+                //(countTables * i + 1).toString() + i
+                elementId = (countTables * 0 + 1).toString() + '0';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(y);
+                    }
+                })
+            }
+
+            if((data1[2] < data1[0] && data1[3] < data1[1]) || (data1[2] < data1[4] && data1[3] < data1[5])){
+                var x = document.createElement("IMG");// create an image
+                x.setAttribute("class", "x");
+                x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                x.setAttribute("alt", "X Factor");
+                var y = document.createElement("IMG");// create an image
+                y.setAttribute("class", "x");
+                y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                y.setAttribute("alt", "X Factor");
+                //(countTables * i).toString() + i
+                elementId = (countTables * 1).toString() + '1';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(x);
+                    }
+                })
+                //(countTables * i + 1).toString() + i
+                elementId = (countTables * 1 + 1).toString() + '1';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(y);
+                    }
+                })
+            }
+
+            if((data1[4] < data1[0] && data1[5] < data1[1]) || (data1[4] < data1[2] && data1[5] < data1[3])){
+                var x = document.createElement("IMG");// create an image
+                x.setAttribute("class", "x");
+                x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                x.setAttribute("alt", "X Factor");
+                var y = document.createElement("IMG");// create an image
+                y.setAttribute("class", "x");
+                y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                y.setAttribute("alt", "X Factor");
+                //(countTables * i).toString() + i
+                elementId = (countTables * 2).toString() + '2';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(x);
+                    }
+                })
+                //(countTables * i + 1).toString() + i
+                elementId = (countTables * 2 + 1).toString() + '2';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(y);
+                    }
+                })
+            }
+
+            if(data2[0] < data2[1] && data2[2] < data2[3] && data2[4] < data2[5]){
+                var x = document.createElement("IMG");// create an image
+                x.setAttribute("class", "x");
+                x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                x.setAttribute("alt", "X Factor");
+                var y = document.createElement("IMG");// create an image
+                y.setAttribute("class", "x");
+                y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                y.setAttribute("alt", "X Factor");
+                var z = document.createElement("IMG");// create an image
+                z.setAttribute("class", "x");
+                z.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                z.setAttribute("alt", "X Factor");
+                //(countTables * i).toString() + i
+                elementId = (countTables * 0).toString() + '0';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(x);
+                    }
+                })
+                //
+                elementId = (countTables * 1).toString() + '1';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(y);
+                    }
+                })
+                //
+                elementId = (countTables * 2).toString() + '2';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(z);
+                    }
+                })
+            }
+
+            if(data2[0] > data2[1] && data2[2] > data2[3] && data2[4] > data2[5]){
+                var x = document.createElement("IMG");// create an image
+                x.setAttribute("class", "x");
+                x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                x.setAttribute("alt", "X Factor");
+                var y = document.createElement("IMG");// create an image
+                y.setAttribute("class", "x");
+                y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                y.setAttribute("alt", "X Factor");
+                var z = document.createElement("IMG");// create an image
+                z.setAttribute("class", "x");
+                z.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                z.setAttribute("alt", "X Factor");
+                //(countTables * i + 1).toString() + i
+                elementId = (countTables * 0 + 1).toString() + '0';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(x);
+                    }
+                })
+                //
+                elementId = (countTables * 1 + 1).toString() + '1';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(y);
+                    }
+                })
+                //
+                elementId = (countTables * 2 + 1).toString() + '2';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(z);
+                    }
+                })
+            }
+
+            thumbMethod(2, data1, data2, 't' + countTables);//
+
+            countTables++;
+        }
+
+        function removeDominatedStrategies2On3(flag, data1, data2){
+            countTables++;
+            draw2On3(data1, data2);
+            var elementId;
+            var tbl = document.getElementById('t' + countTables);
+            if((data2[0] < data2[1] && data2[3] < data2[4]) || (data2[0] < data2[2] && data2[3] < data2[5])){
+                var x = document.createElement("IMG");// create an image
+                x.setAttribute("class", "x");
+                x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                x.setAttribute("alt", "X Factor");
+                var y = document.createElement("IMG");// create an image
+                y.setAttribute("class", "x");
+                y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                y.setAttribute("alt", "X Factor");
+                //(3 * i).toString() + i + i
+                elementId = '000';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(x);
+                    }
+                })
+                //
+                elementId = '311';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(y);
+                    }
+                })
+            }
+
+            if((data2[1] < data2[0] && data2[4] < data2[3]) || (data2[1] < data2[2] && data2[4] < data2[5])){
+                var x = document.createElement("IMG");// create an image
+                x.setAttribute("class", "x");
+                x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                x.setAttribute("alt", "X Factor");
+                var y = document.createElement("IMG");// create an image
+                y.setAttribute("class", "x");
+                y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                y.setAttribute("alt", "X Factor");
+                //(3 * i + 1).toString() + i + i
+                elementId = '100';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(x);
+                    }
+                })
+                //
+                elementId = '411';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(y);
+                    }
+                })
+            }
+
+            if((data2[2] < data2[0] && data2[5] < data2[3]) || (data2[2] < data2[1] && data2[5] < data2[4])){
+                var x = document.createElement("IMG");// create an image
+                x.setAttribute("class", "x");
+                x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                x.setAttribute("alt", "X Factor");
+                var y = document.createElement("IMG");// create an image
+                y.setAttribute("class", "x");
+                y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                y.setAttribute("alt", "X Factor");
+                //(3 * i + 2).toString() + i + i
+                elementId = '200';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(x);
+                    }
+                })
+                //
+                elementId = '511';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(y);
+                    }
+                })
+            }
+
+            if(data1[0] < data1[3] && data1[1] < data1[4] && data1[2] < data1[5]){
+                var x = document.createElement("IMG");// create an image
+                x.setAttribute("class", "x");
+                x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                x.setAttribute("alt", "X Factor");
+                var y = document.createElement("IMG");// create an image
+                y.setAttribute("class", "x");
+                y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                y.setAttribute("alt", "X Factor");
+                var z = document.createElement("IMG");// create an image
+                z.setAttribute("class", "x");
+                z.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                z.setAttribute("alt", "X Factor");
+                //(3 * i).toString() + i + i
+                elementId = '000';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(x);
+                    }
+                })
+                //(3 * i + 1).toString() + i + i
+                elementId = '100';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(y);
+                    }
+                })
+                //(3 * i + 2).toString() + i + i
+                elementId = '200';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(z);
+                    }
+                })
+            }
+
+            if(data1[0] > data1[3] && data1[1] > data1[4] && data1[2] > data1[5]){
+                var x = document.createElement("IMG");// create an image
+                x.setAttribute("class", "x");
+                x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                x.setAttribute("alt", "X Factor");
+                var y = document.createElement("IMG");// create an image
+                y.setAttribute("class", "x");
+                y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                y.setAttribute("alt", "X Factor");
+                var z = document.createElement("IMG");// create an image
+                z.setAttribute("class", "x");
+                z.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                z.setAttribute("alt", "X Factor");
+                //(3 * i).toString() + i + i
+                elementId = '311';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(x);
+                    }
+                })
+                //(3 * i + 1).toString() + i + i
+                elementId = '411';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(y);
+                    }
+                })
+                //(3 * i + 2).toString() + i + i
+                elementId = '511';
+                tbl.childNodes.forEach((node) => {
+                    if(node.getAttribute('id') === elementId){
+                        node.appendChild(z);
+                    }
+                })
+            }
+
+            thumbMethod(3, data1, data2, 't' + countTables);//
+
+            countTables++;
+        }
+
+        
+        function removeDominatedStrategies2On2(flag, data1, data2){
+            countTables++;
+            draw2On2(data1, data2);
+            var elementId;
+            var tbl = document.getElementById('t' + countTables);
+            if(data1[0] < data1[2] && data1[1] < data1[3]){
+                var x = document.createElement("IMG");// create an image
+                x.setAttribute("class", "x");
+                x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                x.setAttribute("alt", "X Factor");
+                var y = document.createElement("IMG");// create an image
+                y.setAttribute("class", "x");
+                y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                y.setAttribute("alt", "X Factor");
+                //(countTables * (i + 1)).toString() + i + i + i
+                elementId = (countTables * 1).toString() + '000';
+                document.getElementById(elementId).appendChild(x);
+                //countTables * (i + 1)).toString() + i + i + (i + 1)
+                elementId = (countTables * 1).toString() + '001';
+                document.getElementById(elementId).appendChild(y);
+            }
+
+            if(data1[0] > data1[2] && data1[1] > data1[3]){
+                var x = document.createElement("IMG");// create an image
+                x.setAttribute("class", "x");
+                x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                x.setAttribute("alt", "X Factor");
+                var y = document.createElement("IMG");// create an image
+                y.setAttribute("class", "x");
+                y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                y.setAttribute("alt", "X Factor");
+                //(countTables * (i + 1)).toString() + i + i + i
+                elementId = (countTables * 2).toString() + '111';
+                document.getElementById(elementId).appendChild(x);
+                //countTables * (i + 1)).toString() + i + i + (i + 1)
+                elementId = (countTables * 2).toString() + '112';
+                document.getElementById(elementId).appendChild(y);
+            }
+
+            if(data2[0] < data2[1] && data2[2] < data2[3]){
+                var x = document.createElement("IMG");// create an image
+                x.setAttribute("class", "x");
+                x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                x.setAttribute("alt", "X Factor");
+                var y = document.createElement("IMG");// create an image
+                y.setAttribute("class", "x");
+                y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                y.setAttribute("alt", "X Factor");
+                //(countTables * (i + 1)).toString() + i + i + i
+                elementId = (countTables * 1).toString() + '000';
+                document.getElementById(elementId).appendChild(x);
+                //
+                elementId = (countTables * 2).toString() + '111';
+                document.getElementById(elementId).appendChild(y);
+            }
+
+            if(data2[0] > data2[1] && data2[2] > data2[3]){
+                var x = document.createElement("IMG");// create an image
+                x.setAttribute("class", "x");
+                x.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                x.setAttribute("alt", "X Factor");
+                var y = document.createElement("IMG");// create an image
+                y.setAttribute("class", "x");
+                y.setAttribute("src", "https://vignette.wikia.nocookie.net/meghan-trainer/images/3/30/X_factor_logo.png/revision/latest?cb=20150409214034&format=original");
+                y.setAttribute("alt", "X Factor");
+                //countTables * (i + 1)).toString() + i + i + (i + 1)
+                elementId = (countTables * 1).toString() + '001';
+                document.getElementById(elementId).appendChild(x);
+                //
+                elementId = (countTables * 2).toString() + '112';
+                document.getElementById(elementId).appendChild(y);
+            }
+            
+            thumbMethod(4, data1, data2, 't' + countTables);//
+
+            countTables++;
+        }
+
+        function removeDominatedStrategies3On1(flag, data1, data2){
+            countTables++;
+            draw3On1(data1, data2);
+
+            thumbMethod(5, data1, data2, 't' + countTables);//
+
+            countTables++;
+        }
+
+        function removeDominatedStrategies1On3(flag, data1, data2){
+            countTables++;
+            draw1On3(data1, data2);
+
+            thumbMethod(6, data1, data2, 't' + countTables);//
+
+            countTables++;
+        }
+
+        function removeDominatedStrategies2On1(flag, data1, data2){
+            countTables++;
+            draw2On1(data1, data2);
+
+            thumbMethod(7, data1, data2, 't' + countTables);//
+
+            countTables++;
+        }
+
+        function removeDominatedStrategies1On2(flag, data1, data2){
+            countTables++;
+            draw1On2(data1, data2);
+
+            thumbMethod(8, data1, data2, 't' + countTables);//
+
+            countTables++;
+        }
+
+        function thumbMethod(flag, data1, data2, tbl){// the div id ('table')
+            var result = [];
+            var result2 = [];// for data2
+            var nash = [];
+            var foundNewNash = {isFound: false, nashIndex: []};
+            switch(flag){
+                case 1:
+                // 3 x 3
+                // columns:
+                    var arr = [data1[0], data1[3], data1[6]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    console.log(maxNum);
+                    arr.forEach((value, index) => {
+                         if(maxNum === value){
+                            result.push(index * 3);// new Point(index + 1, 1)
+                         }
+                    });
+                    console.log('Indexes: ' + result);
+                    result.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         ch.forEach((value, key) => {
+                            console.log(key, ':', value)
+                         });
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[0];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "blue";
+                    });
+
+                    var arr = [data1[1], data1[4], data1[7]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    arr.forEach((value, index) => {
+                         if(maxNum === value){
+                            result.push(index * 3 + 1);
+                         }
+                    });
+                    console.log('Indexes: ' + result);
+                    result.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[0];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "blue";
+                    });
+
+                    var arr = [data1[2], data1[5], data1[8]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    arr.forEach((value, index) => {
+                         if(maxNum === value){
+                            result.push(index * 3 + 2);
+                         }
+                    });
+                    console.log('Indexes: ' + result);
+                    result.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[0];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "blue";
+                    });
+
+                //rows:
+                    var arr = [data2[0], data2[1], data2[2]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    arr.forEach((value, index) => {
+                        if(maxNum === value){
+                            result.forEach((elm, indexResult) => {
+                                if(elm === index){// if one of the stored index in result is equal to index of the new max's value
+                                    nash.push(elm);// found a nash equilibrium
+                                    foundNewNash.isFound = true;
+                                    foundNewNash.nashIndex.push(index);
+                                }
+                            });
+                            result2.push(index);
+                        }
+                    });
+                    console.log('Indexes: ' + result2);
+                    result2.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[2];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "red";
+                    });
+                    if(foundNewNash.isFound){
+                        for(var i = 0; i < foundNewNash.nashIndex.length; i++){
+                            var x = document.createElement("IMG");// create an image
+                            x.setAttribute("class", "x");
+                            x.setAttribute("src", "http://www.text2image.com/user_images/text2image_P78643_20181229_193335.jpg");
+                            x.setAttribute("alt", "Nash");
+                            var ch = document.getElementById(tbl).childNodes;
+                            ch[foundNewNash.nashIndex[i]].appendChild(x);
+                        }
+                    }
+                    foundNewNash = {isFound: false, nashIndex: []};
+                    console.log(nash);
+
+                    var arr = [data2[3], data2[4], data2[5]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    arr.forEach((value, index) => {
+                        if(maxNum === value){
+                            result.forEach((elm, indexResult) => {
+                                if(elm === index + 3){// if one of the stored index in result is equal to index of the new max's value
+                                    nash.push(elm);// found a nash equilibrium
+                                    foundNewNash.isFound = true;
+                                    foundNewNash.nashIndex.push(index + 3);
+                                }
+                            });
+                            result2.push(index + 3);
+                        }
+                    });
+                    console.log('Indexes: ' + result2);
+                    result2.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[2];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "red";
+                    });
+                    if(foundNewNash.isFound){
+                        for(var i = 0; i < foundNewNash.nashIndex.length; i++){
+                            var x = document.createElement("IMG");// create an image
+                            x.setAttribute("class", "x");
+                            x.setAttribute("src", "http://www.text2image.com/user_images/text2image_P78643_20181229_193335.jpg");
+                            x.setAttribute("alt", "Nash");
+                            var ch = document.getElementById(tbl).childNodes;
+                            ch[foundNewNash.nashIndex[i]].appendChild(x);
+                        }
+                    }
+                    foundNewNash = {isFound: false, nashIndex: []};
+                    console.log(nash);
+
+                    var arr = [data2[6], data2[7], data2[8]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    arr.forEach((value, index) => {
+                        if(maxNum === value){
+                            result.forEach((elm, indexResult) => {
+                                if(elm === index + 6){// if one of the stored index in result is equal to index of the new max's value
+                                    nash.push(elm);// found a nash equilibrium
+                                    foundNewNash.isFound = true;
+                                    foundNewNash.nashIndex.push(index + 6);
+                                }
+                            });
+                            result2.push(index + 6);
+                        }
+                    });
+                    console.log('Indexes: ' + result2);
+                    result2.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[2];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "red";
+                    });
+                    if(foundNewNash.isFound){
+                        for(var i = 0; i < foundNewNash.nashIndex.length; i++){
+                            var x = document.createElement("IMG");// create an image
+                            x.setAttribute("class", "x");
+                            x.setAttribute("src", "http://www.text2image.com/user_images/text2image_P78643_20181229_193335.jpg");
+                            x.setAttribute("alt", "Nash");
+                            var ch = document.getElementById(tbl).childNodes;
+                            ch[foundNewNash.nashIndex[i]].appendChild(x);
+                        }
+                    }
+                    foundNewNash = {isFound: false, nashIndex: []};
+                    console.log(nash);
+                   
+                    break;
+                case 2:
+                // 3 X 2
+                // columns:
+                    var arr = [data1[0], data1[2], data1[4]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    console.log(maxNum);
+                    arr.forEach((value, index) => {
+                         if(maxNum === value){
+                            result.push(index * 2);// new Point(index + 1, 1)
+                         }
+                    });
+                    console.log('Indexes: ' + result);
+                    result.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         ch.forEach((value, key) => {
+                            console.log(key, ':', value)
+                         });
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[0];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "blue";
+                    });
+
+                    var arr = [data1[1], data1[3], data1[5]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    arr.forEach((value, index) => {
+                         if(maxNum === value){
+                            result.push(index * 2 + 1);
+                         }
+                    });
+                    console.log('Indexes: ' + result);
+                    result.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[0];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "blue";
+                    });
+
+                //rows:
+                    var arr = [data2[0], data2[1]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    arr.forEach((value, index) => {
+                        if(maxNum === value){
+                            result.forEach((elm, indexResult) => {
+                                if(elm === index){// if one of the stored index in result is equal to index of the new max's value
+                                    nash.push(elm);// found a nash equilibrium
+                                    foundNewNash.isFound = true;
+                                    foundNewNash.nashIndex.push(index);
+                                }
+                            });
+                            result2.push(index);
+                        }
+                    });
+                    console.log('Indexes: ' + result2);
+                    result2.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[2];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "red";
+                    });
+                    if(foundNewNash.isFound){
+                        for(var i = 0; i < foundNewNash.nashIndex.length; i++){
+                            var x = document.createElement("IMG");// create an image
+                            x.setAttribute("class", "x");
+                            x.setAttribute("src", "http://www.text2image.com/user_images/text2image_P78643_20181229_193335.jpg");
+                            x.setAttribute("alt", "Nash");
+                            var ch = document.getElementById(tbl).childNodes;
+                            ch[foundNewNash.nashIndex[i]].appendChild(x);
+                        }
+                    }
+                    foundNewNash = {isFound: false, nashIndex: []};
+                    console.log(nash);
+
+                    var arr = [data2[2], data2[3]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    arr.forEach((value, index) => {
+                        if(maxNum === value){
+                            result.forEach((elm, indexResult) => {
+                                if(elm === index + 2){// if one of the stored index in result is equal to index of the new max's value
+                                    nash.push(elm);// found a nash equilibrium
+                                    foundNewNash.isFound = true;
+                                    foundNewNash.nashIndex.push(index + 2);
+                                }
+                            });
+                            result2.push(index + 2);
+                        }
+                    });
+                    console.log('Indexes: ' + result2);
+                    result2.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[2];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "red";
+                    });
+                    if(foundNewNash.isFound){
+                        for(var i = 0; i < foundNewNash.nashIndex.length; i++){
+                            var x = document.createElement("IMG");// create an image
+                            x.setAttribute("class", "x");
+                            x.setAttribute("src", "http://www.text2image.com/user_images/text2image_P78643_20181229_193335.jpg");
+                            x.setAttribute("alt", "Nash");
+                            var ch = document.getElementById(tbl).childNodes;
+                            ch[foundNewNash.nashIndex[i]].appendChild(x);
+                        }
+                    }
+                    foundNewNash = {isFound: false, nashIndex: []};
+                    console.log(nash);
+
+                    var arr = [data2[4], data2[5]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    arr.forEach((value, index) => {
+                        if(maxNum === value){
+                            result.forEach((elm, indexResult) => {
+                                if(elm === index + 4){// if one of the stored index in result is equal to index of the new max's value
+                                    nash.push(elm);// found a nash equilibrium
+                                    foundNewNash.isFound = true;
+                                    foundNewNash.nashIndex.push(index + 4);
+                                }
+                            });
+                            result2.push(index + 4);
+                        }
+                    });
+                    console.log('Indexes: ' + result2);
+                    result2.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[2];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "red";
+                    });
+                    if(foundNewNash.isFound){
+                        for(var i = 0; i < foundNewNash.nashIndex.length; i++){
+                            var x = document.createElement("IMG");// create an image
+                            x.setAttribute("class", "x");
+                            x.setAttribute("src", "http://www.text2image.com/user_images/text2image_P78643_20181229_193335.jpg");
+                            x.setAttribute("alt", "Nash");
+                            var ch = document.getElementById(tbl).childNodes;
+                            ch[foundNewNash.nashIndex[i]].appendChild(x);
+                        }
+                    }
+                    foundNewNash = {isFound: false, nashIndex: []};
+                    console.log(nash);
+                    break;
+                case 3:
+                // 2 X 3
+                // columns:
+                    var arr = [data1[0], data1[3]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    console.log(maxNum);
+                    arr.forEach((value, index) => {
+                         if(maxNum === value){
+                            result.push(index * 3);// new Point(index + 1, 1)
+                         }
+                    });
+                    console.log('Indexes: ' + result);
+                    result.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         ch.forEach((value, key) => {
+                            console.log(key, ':', value)
+                         });
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[0];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "blue";
+                    });
+
+                    var arr = [data1[1], data1[4]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    arr.forEach((value, index) => {
+                         if(maxNum === value){
+                            result.push(index * 3 + 1);
+                         }
+                    });
+                    console.log('Indexes: ' + result);
+                    result.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[0];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "blue";
+                    });
+
+                    var arr = [data1[2], data1[5]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    arr.forEach((value, index) => {
+                         if(maxNum === value){
+                            result.push(index * 3 + 2);
+                         }
+                    });
+                    console.log('Indexes: ' + result);
+                    result.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[0];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "blue";
+                    });
+
+                //rows:
+                    var arr = [data2[0], data2[1], data2[2]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    arr.forEach((value, index) => {
+                        if(maxNum === value){
+                            result.forEach((elm, indexResult) => {
+                                if(elm === index){// if one of the stored index in result is equal to index of the new max's value
+                                    nash.push(elm);// found a nash equilibrium
+                                    foundNewNash.isFound = true;
+                                    foundNewNash.nashIndex.push(index);
+                                }
+                            });
+                            result2.push(index);
+                        }
+                    });
+                    console.log('Indexes: ' + result2);
+                    result2.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[2];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "red";
+                    });
+                    if(foundNewNash.isFound){
+                        for(var i = 0; i < foundNewNash.nashIndex.length; i++){
+                            var x = document.createElement("IMG");// create an image
+                            x.setAttribute("class", "x");
+                            x.setAttribute("src", "http://www.text2image.com/user_images/text2image_P78643_20181229_193335.jpg");
+                            x.setAttribute("alt", "Nash");
+                            var ch = document.getElementById(tbl).childNodes;
+                            ch[foundNewNash.nashIndex[i]].appendChild(x);
+                        }
+                    }
+                    foundNewNash = {isFound: false, nashIndex: []};
+                    console.log(nash);
+
+                    var arr = [data2[3], data2[4], data2[5]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    arr.forEach((value, index) => {
+                        if(maxNum === value){
+                            result.forEach((elm, indexResult) => {
+                                if(elm === index + 3){// if one of the stored index in result is equal to index of the new max's value
+                                    nash.push(elm);// found a nash equilibrium
+                                    foundNewNash.isFound = true;
+                                    foundNewNash.nashIndex.push(index + 3);
+                                }
+                            });
+                            result2.push(index + 3);
+                        }
+                    });
+                    console.log('Indexes: ' + result2);
+                    result2.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[2];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "red";
+                    });
+                    if(foundNewNash.isFound){
+                        for(var i = 0; i < foundNewNash.nashIndex.length; i++){
+                            var x = document.createElement("IMG");// create an image
+                            x.setAttribute("class", "x");
+                            x.setAttribute("src", "http://www.text2image.com/user_images/text2image_P78643_20181229_193335.jpg");
+                            x.setAttribute("alt", "Nash");
+                            var ch = document.getElementById(tbl).childNodes;
+                            ch[foundNewNash.nashIndex[i]].appendChild(x);
+                        }
+                    }
+                    foundNewNash = {isFound: false, nashIndex: []};
+                    console.log(nash);
+                    break;
+                case 4:
+                // 2 X 2
+                // columns:
+                    var arr = [data1[0], data1[2]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    console.log(maxNum);
+                    arr.forEach((value, index) => {
+                         if(maxNum === value){
+                            result.push(index * 2);// new Point(index + 1, 1)
+                         }
+                    });
+                    console.log('Indexes: ' + result);
+                    result.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         ch.forEach((value, key) => {
+                            console.log(key, ':', value)
+                         });
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[0];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "blue";
+                    });
+
+                    var arr = [data1[1], data1[3]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    arr.forEach((value, index) => {
+                         if(maxNum === value){
+                            result.push(index * 2 + 1);
+                         }
+                    });
+                    console.log('Indexes: ' + result);
+                    result.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[0];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "blue";
+                    });
+
+                //rows:
+                    var arr = [data2[0], data2[1]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    arr.forEach((value, index) => {
+                        if(maxNum === value){
+                            result.forEach((elm, indexResult) => {
+                                if(elm === index){// if one of the stored index in result is equal to index of the new max's value
+                                    nash.push(elm);// found a nash equilibrium
+                                    foundNewNash.isFound = true;
+                                    foundNewNash.nashIndex.push(index);
+                                }
+                            });
+                            result2.push(index);
+                        }
+                    });
+                    console.log('Indexes: ' + result2);
+                    result2.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[2];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "red";
+                    });
+                    if(foundNewNash.isFound){
+                        for(var i = 0; i < foundNewNash.nashIndex.length; i++){
+                            var x = document.createElement("IMG");// create an image
+                            x.setAttribute("class", "x");
+                            x.setAttribute("src", "http://www.text2image.com/user_images/text2image_P78643_20181229_193335.jpg");
+                            x.setAttribute("alt", "Nash");
+                            var ch = document.getElementById(tbl).childNodes;
+                            ch[foundNewNash.nashIndex[i]].appendChild(x);
+                        }
+                    }
+                    foundNewNash = {isFound: false, nashIndex: []};
+                    console.log(nash);
+
+                    var arr = [data2[2], data2[3]];
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    arr.forEach((value, index) => {
+                        if(maxNum === value){
+                            result.forEach((elm, indexResult) => {
+                                if(elm === index + 2){// if one of the stored index in result is equal to index of the new max's value
+                                    nash.push(elm);// found a nash equilibrium
+                                    foundNewNash.isFound = true;
+                                    foundNewNash.nashIndex.push(index + 2);
+                                }
+                            });
+                            result2.push(index + 2);
+                        }
+                    });
+                    console.log('Indexes: ' + result2);
+                    result2.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[2];// because it focuses on data2
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "red";
+                    });
+                    if(foundNewNash.isFound){
+                        for(var i = 0; i < foundNewNash.nashIndex.length; i++){
+                            var x = document.createElement("IMG");// create an image
+                            x.setAttribute("class", "x");
+                            x.setAttribute("src", "http://www.text2image.com/user_images/text2image_P78643_20181229_193335.jpg");
+                            x.setAttribute("alt", "Nash");
+                            var ch = document.getElementById(tbl).childNodes;
+                            ch[foundNewNash.nashIndex[i]].appendChild(x);
+                        }
+                    }
+                    foundNewNash = {isFound: false, nashIndex: []};
+                    console.log(nash);
+                    break;
+                case 5:
+                case 7:
+                // 3 X 1
+                // 2 X 1
+                    data2.forEach((value, index) => {
+                        // marker all
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[index].childNodes;
+                         var spanNode = divNode[2];// because it focuses on data2
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "red";
+                    });
+                    var arr = data1;
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    console.log(maxNum);
+                    arr.forEach((value, index) => {
+                         if(maxNum === value){
+                            nash.push(index);// found a nash equilibrium
+                            foundNewNash.isFound = true;
+                            foundNewNash.nashIndex.push(index);
+                         }
+                    });
+                    nash.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         ch.forEach((value, key) => {
+                            console.log(key, ':', value)
+                         });
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[0];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "blue";
+                    });
+                    if(foundNewNash.isFound){
+                        for(var i = 0; i < foundNewNash.nashIndex.length; i++){
+                            var x = document.createElement("IMG");// create an image
+                            x.setAttribute("class", "x");
+                            x.setAttribute("src", "http://www.text2image.com/user_images/text2image_P78643_20181229_193335.jpg");
+                            x.setAttribute("alt", "Nash");
+                            var ch = document.getElementById(tbl).childNodes;
+                            ch[foundNewNash.nashIndex[i]].appendChild(x);
+                        }
+                    }
+                    foundNewNash = {isFound: false, nashIndex: []};
+                    console.log(nash);
+                    break;
+                case 6:
+                case 8:
+                // 1 X 3
+                // 1 X 2
+                    data1.forEach((value, index) => {
+                        // marker all
+                         var ch = document.getElementById(tbl).childNodes;
+                         var divNode = ch[index].childNodes;
+                         var spanNode = divNode[0];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "blue";
+                    });
+                    var arr = data2;
+                    var maxNum = Math.max(...arr);// find the max value in the array
+                    console.log(maxNum);
+                    arr.forEach((value, index) => {
+                         if(maxNum === value){
+                            nash.push(index);// found a nash equilibrium
+                            foundNewNash.isFound = true;
+                            foundNewNash.nashIndex.push(index);
+                         }
+                    });
+                    nash.forEach((value, index) => {
+                         var ch = document.getElementById(tbl).childNodes;
+                         ch.forEach((value, key) => {
+                            console.log(key, ':', value)
+                         });
+                         var divNode = ch[value].childNodes;
+                         var spanNode = divNode[2];// because it focuses on data1
+                         spanNode.style.textDecoration = "underline";
+                         spanNode.style.color = "red";
+                    });
+                    if(foundNewNash.isFound){
+                        for(var i = 0; i < foundNewNash.nashIndex.length; i++){
+                            var x = document.createElement("IMG");// create an image
+                            x.setAttribute("class", "x");
+                            x.setAttribute("src", "http://www.text2image.com/user_images/text2image_P78643_20181229_193335.jpg");
+                            x.setAttribute("alt", "Nash");
+                            var ch = document.getElementById(tbl).childNodes;
+                            ch[foundNewNash.nashIndex[i]].appendChild(x);
+                        }
+                    }
+                    foundNewNash = {isFound: false, nashIndex: []};
+                    console.log(nash);
+                    break;
+            }
+        }
+
+        function reset() {// reset all the flags
+            data11 = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
+            Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
+            Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
+            data12 = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
+            Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
+            Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
+            var i;
+            for(i = 0 ; i < data1.length; i++){
+                var textnode1 = document.createTextNode(data11[i].toString());
+                var textnode2 = document.createTextNode(' , ');
+                var textnode3 = document.createTextNode(data12[i].toString());
+                var span1 = document.createElement('span');
+                span1.appendChild(textnode1);
+                var span2 = document.createElement('span');
+                span2.appendChild(textnode3);
+                while (document.getElementById('0' + (i+1)).hasChildNodes()) {  
+                    document.getElementById('0' + (i+1)).removeChild(document.getElementById('0' + (i+1)).firstChild);
+                }             
+                document.getElementById('0' + (i+1)).appendChild(span1);// add a number to a div 
+                document.getElementById('0' + (i+1)).appendChild(textnode2);// add a number to a div 
+                document.getElementById('0' + (i+1)).appendChild(span2);// add a number to a div 
+            }
+            
+            
+
+            for(i = 1 ; i < countTables; i++){
+                document.body.removeChild(document.getElementById('t' + i));       
+            }
+
+            countTables = 1;
+
+            setTimeout(() => {
+                draw3On3(data11, data12);
+                setTimeout(() => {// need to change from draw to edit
+                    draw3On2([data11[0], data11[1], data11[2], data11[3], data11[4], data11[5]], [data12[0], data12[1], data12[2], data12[3], data12[4], data12[5]]);
+                    setTimeout(() => {
+                        draw2On3([data11[0], data11[1], data11[2], data11[3], data11[4], data11[5]], [data12[0], data12[1], data12[2], data12[3], data12[4], data12[5]])
+                        draw2On2([data11[0], data11[1], data11[2], data11[3]], [data12[0], data12[1], data12[2], data12[3]]);
+                    }, 2000);
+                }, 2000);
+            }, 2000);
+
+            //removeDominatedStrategies(-1, data11, data12);
+
+            
+
+        }
+        
+    </script>
+    
+    
+</body >
+
+</html >
