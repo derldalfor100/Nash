@@ -208,12 +208,12 @@
 
         }
         
-        function draw3On3(data01, data02){
+        function draw3On3(data1, data2){
             var tbl = document.createElement('div');
             tbl.setAttribute("class", "row");
             tbl.setAttribute("id", "t" + countTables);
             document.body.appendChild(tbl);
-            for(var i=0; i < data01.length; i++){
+            for(var i=0; i < data1.length; i++){
                 var tile = document.createElement('div');
                 if(i % 3 !== 2){
                     tile.setAttribute("class", "rowx colu col-xs-4");
@@ -222,9 +222,9 @@
                 }
                 tile.setAttribute("id", i+1);
         
-                var textnode1 = document.createTextNode(data01[i].toString());
+                var textnode1 = document.createTextNode(data1[i].toString());
                 var textnode2 = document.createTextNode(' , ');
-                var textnode3 = document.createTextNode(data02[i].toString());
+                var textnode3 = document.createTextNode(data2[i].toString());
                 var span1 = document.createElement('span');
                 span1.appendChild(textnode1);
                 var span2 = document.createElement('span');
@@ -237,7 +237,7 @@
             }
 
             countTables++;
-            removeDominatedStrategies(-1, data01, data02);
+            removeDominatedStrategies(-1, data1, data2);
         }
 
         //draw2On3([data1[0], data1[1], data1[2], data1[3], data1[4], data1[5]], [data2[0], data2[1], data2[2], data2[3], data2[4], data2[5]]);
@@ -1833,14 +1833,14 @@
         }
 
         function reset() {// reset all the flags
-            data11 = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
+            var data11 = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
             Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
             Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
-            data12 = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
+            var data12 = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
             Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
             Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
             var i;
-            for(i = 0 ; i < data1.length; i++){
+            for(i = 0 ; i < data11.length; i++){
                 var textnode1 = document.createTextNode(data11[i].toString());
                 var textnode2 = document.createTextNode(' , ');
                 var textnode3 = document.createTextNode(data12[i].toString());
