@@ -461,7 +461,7 @@
             tbl.setAttribute("class", "row");
             tbl.setAttribute("id", "t" + countTables);
             document.body.appendChild(tbl);
-            for(var i=0; i < 2; i++) {
+            for(var i=0; i < data1.length; i++) {
                 var tile = document.createElement('div');
                 tile.setAttribute("class", "rowx col");
                 tile.setAttribute("id", (countTables * (i + 1)).toString() + i + i + i + i + i + i);
