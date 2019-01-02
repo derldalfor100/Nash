@@ -185,18 +185,22 @@
 
             setTimeout(() => {
                 draw3On3(data1, data2);
-                setTimeout(() => {
-                    draw3On2([data1[0], data1[1], data1[2], data1[3], data1[4], data1[5]], [data2[0], data2[1], data2[2], data2[3], data2[4], data2[5]]);
-                    setTimeout(() => {
-                        draw2On3([data1[0], data1[1], data1[2], data1[3], data1[4], data1[5]], [data2[0], data2[1], data2[2], data2[3], data2[4], data2[5]]);
-                        draw2On2([data1[0], data1[1], data1[2], data1[3]], [data2[0], data2[1], data2[2], data2[3]]);
-                        draw3On1([data1[0], data1[1], data1[2]], [data2[0], data2[1], data2[2]]);
-                        draw1On3([data1[0], data1[1], data1[2]], [data2[0], data2[1], data2[2]]);
-                        draw2On1([data1[0], data1[1]], [data2[0], data2[1]]);
-                        draw1On2([data1[0], data1[1]], [data2[0], data2[1]]);
-                    }, 2000);
-                }, 2000);
             }, 2000);
+
+            // setTimeout(() => {
+            //     draw3On3(data1, data2);
+            //     setTimeout(() => {
+            //         draw3On2([data1[0], data1[1], data1[2], data1[3], data1[4], data1[5]], [data2[0], data2[1], data2[2], data2[3], data2[4], data2[5]]);
+            //         setTimeout(() => {
+            //             draw2On3([data1[0], data1[1], data1[2], data1[3], data1[4], data1[5]], [data2[0], data2[1], data2[2], data2[3], data2[4], data2[5]]);
+            //             draw2On2([data1[0], data1[1], data1[2], data1[3]], [data2[0], data2[1], data2[2], data2[3]]);
+            //             draw3On1([data1[0], data1[1], data1[2]], [data2[0], data2[1], data2[2]]);
+            //             draw1On3([data1[0], data1[1], data1[2]], [data2[0], data2[1], data2[2]]);
+            //             draw2On1([data1[0], data1[1]], [data2[0], data2[1]]);
+            //             draw1On2([data1[0], data1[1]], [data2[0], data2[1]]);
+            //         }, 2000);
+            //     }, 2000);
+            // }, 2000);
 
             //removeDominatedStrategies(-1);
 
@@ -209,7 +213,7 @@
             tbl.setAttribute("class", "row");
             tbl.setAttribute("id", "t" + countTables);
             document.body.appendChild(tbl);
-            for(var i=0; i < data1.length; i++){
+            for(var i=0; i < data01.length; i++){
                 var tile = document.createElement('div');
                 if(i % 3 !== 2){
                     tile.setAttribute("class", "rowx colu col-xs-4");
@@ -229,7 +233,7 @@
                 tile.appendChild(textnode2);// add a number to a div 
                 tile.appendChild(span2);// add a number to a div 
 
-                document.getElementById('t1').appendChild(tile);
+                document.getElementById("t" + countTables).appendChild(tile);
             }
 
             countTables++;
@@ -532,7 +536,10 @@
                     document.getElementById(1).appendChild(x);// add a pic to a div 
                     document.getElementById(2).appendChild(y);// add a pic to a div 
                     document.getElementById(3).appendChild(z);// add a pic to a div 
-                    //setTimeout(removeDominatedStrategies(1), 1000);//
+                    data1.splice(0, 3);// remove the first 3 elements
+                    data2.splice(0, 3);
+                    setTimeout(draw2On3(data1, data2), 1000);
+                    return;
             }
 
             if(flag < 2 && (data2[0] < data2[1] && data2[3] < data2[4] && data2[6] < data2[7]) ||
@@ -552,7 +559,14 @@
                     document.getElementById(1).appendChild(x);// add a pic to a div 
                     document.getElementById(4).appendChild(y);// add a pic to a div 
                     document.getElementById(7).appendChild(z);// add a pic to a div 
-                    //setTimeout(removeDominatedStrategies(2), 1000);//
+                    data1.splice(0, 1);// remove 3 elements
+                    data1.splice(2, 1);
+                    data1.splice(4, 1);
+                    data2.splice(0, 1);
+                    data2.splice(2, 1);
+                    data2.splice(4, 1);
+                    setTimeout(draw3On2(data1, data2), 1000);
+                    return;
             }
 
             if(flag < 3 && (data1[3] < data1[0] && data1[4] < data1[1] && data1[5] < data1[2]) ||
@@ -572,7 +586,10 @@
                     document.getElementById(4).appendChild(x);// add a pic to a div 
                     document.getElementById(5).appendChild(y);// add a pic to a div 
                     document.getElementById(6).appendChild(z);// add a pic to a div 
-                    //setTimeout(removeDominatedStrategies(3), 1000);//
+                    data1.splice(3, 3);// remove the first 3 elements
+                    data2.splice(3, 3);
+                    setTimeout(draw2On3(data1, data2), 1000);
+                    return;
             }
 
             if(flag < 4 && (data2[1] < data2[0] && data2[4] < data2[3] && data2[7] < data2[6]) ||
@@ -592,7 +609,14 @@
                 document.getElementById(2).appendChild(x);// add a pic to a div 
                 document.getElementById(5).appendChild(y);// add a pic to a div 
                 document.getElementById(8).appendChild(z);// add a pic to a div 
-                //setTimeout(removeDominatedStrategies(4), 1000);//
+                data1.splice(1, 1);// remove 3 elements
+                data1.splice(3, 1);
+                data1.splice(5, 1);
+                data2.splice(1, 1);
+                data2.splice(3, 1);
+                data2.splice(5, 1);
+                setTimeout(draw3On2(data1, data2), 1000);
+                return;
             }
 
             if(flag < 5 && (data1[6] < data1[0] && data1[7] < data1[1] && data1[8] < data1[2]) ||
@@ -612,7 +636,10 @@
                 document.getElementById(7).appendChild(x);// add a pic to a div 
                 document.getElementById(8).appendChild(y);// add a pic to a div 
                 document.getElementById(9).appendChild(z);// add a pic to a div 
-                //setTimeout(removeDominatedStrategies(5), 1000);//
+                data1.splice(6, 3);// remove the first 3 elements
+                data2.splice(6, 3);
+                setTimeout(draw2On3(data1, data2), 1000);
+                return;
             }
 
             if(flag < 6 && (data2[2] < data2[0] && data2[5] < data2[3] && data2[8] < data2[6]) ||
@@ -632,7 +659,14 @@
                 document.getElementById(3).appendChild(x);// add a pic to a div 
                 document.getElementById(6).appendChild(y);// add a pic to a div 
                 document.getElementById(9).appendChild(z);// add a pic to a div 
-                //setTimeout(removeDominatedStrategies(6), 1000);//
+                data1.splice(2, 1);// remove 3 elements
+                data1.splice(4, 1);
+                data1.splice(7, 1);
+                data2.splice(2, 1);
+                data2.splice(4, 1);
+                data2.splice(7, 1);
+                setTimeout(draw3On2(data1, data2), 1000);
+                return;
             }
             console.log(countTables - 1);
 
@@ -667,6 +701,11 @@
                         node.appendChild(y);
                     }
                 })
+                countTables++;
+                data1.splice(0, 2);// remove the first 2 elements
+                data2.splice(0, 2);
+                setTimeout(draw2On2(data1, data2), 1000);
+                return;
             }
 
             if((data1[2] < data1[0] && data1[3] < data1[1]) || (data1[2] < data1[4] && data1[3] < data1[5])){
@@ -692,6 +731,11 @@
                         node.appendChild(y);
                     }
                 })
+                countTables++;
+                data1.splice(2, 2);// remove the first 2 elements
+                data2.splice(2, 2);
+                setTimeout(draw2On2(data1, data2), 1000);
+                return;
             }
 
             if((data1[4] < data1[0] && data1[5] < data1[1]) || (data1[4] < data1[2] && data1[5] < data1[3])){
@@ -717,6 +761,11 @@
                         node.appendChild(y);
                     }
                 })
+                countTables++;
+                data1.splice(4, 2);// remove the first 2 elements
+                data2.splice(4, 2);
+                setTimeout(draw2On2(data1, data2), 1000);
+                return;
             }
 
             if(data2[0] < data2[1] && data2[2] < data2[3] && data2[4] < data2[5]){
@@ -753,6 +802,15 @@
                         node.appendChild(z);
                     }
                 })
+                countTables++;
+                data1.splice(0, 1);// remove 3 elements
+                data1.splice(1, 1);
+                data1.splice(2, 1);
+                data2.splice(0, 1);
+                data2.splice(1, 1);
+                data2.splice(2, 1);
+                setTimeout(draw3On1(data1, data2), 1000);
+                return;
             }
 
             if(data2[0] > data2[1] && data2[2] > data2[3] && data2[4] > data2[5]){
@@ -789,6 +847,15 @@
                         node.appendChild(z);
                     }
                 })
+                countTables++;
+                data1.splice(1, 1);// remove 3 elements
+                data1.splice(2, 1);
+                data1.splice(3, 1);
+                data2.splice(1, 1);
+                data2.splice(2, 1);
+                data2.splice(3, 1);
+                setTimeout(draw3On1(data1, data2), 1000);
+                return;
             }
 
             thumbMethod(2, data1, data2, 't' + countTables);//
@@ -824,6 +891,13 @@
                         node.appendChild(y);
                     }
                 })
+                countTables++;
+                data1.splice(0, 1);// remove 2 elements
+                data1.splice(2, 1);
+                data2.splice(0, 1);
+                data2.splice(2, 1);
+                setTimeout(draw2On2(data1, data2), 1000);
+                return;
             }
 
             if((data2[1] < data2[0] && data2[4] < data2[3]) || (data2[1] < data2[2] && data2[4] < data2[5])){
@@ -849,6 +923,13 @@
                         node.appendChild(y);
                     }
                 })
+                countTables++;
+                data1.splice(1, 1);// remove 2 elements
+                data1.splice(3, 1);
+                data2.splice(1, 1);
+                data2.splice(3, 1);
+                setTimeout(draw2On2(data1, data2), 1000);
+                return;
             }
 
             if((data2[2] < data2[0] && data2[5] < data2[3]) || (data2[2] < data2[1] && data2[5] < data2[4])){
@@ -874,6 +955,13 @@
                         node.appendChild(y);
                     }
                 })
+                countTables++;
+                data1.splice(2, 1);// remove 2 elements
+                data1.splice(4, 1);
+                data2.splice(2, 1);
+                data2.splice(4, 1);
+                setTimeout(draw2On2(data1, data2), 1000);
+                return;
             }
 
             if(data1[0] < data1[3] && data1[1] < data1[4] && data1[2] < data1[5]){
@@ -910,6 +998,11 @@
                         node.appendChild(z);
                     }
                 })
+                countTables++;
+                data1.splice(0, 3);// remove the first 3 elements
+                data2.splice(0, 3);
+                setTimeout(draw1On3(data1, data2), 1000);
+                return;
             }
 
             if(data1[0] > data1[3] && data1[1] > data1[4] && data1[2] > data1[5]){
@@ -946,6 +1039,11 @@
                         node.appendChild(z);
                     }
                 })
+                countTables++;
+                data1.splice(3, 3);// remove the first 3 elements
+                data2.splice(3, 3);
+                setTimeout(draw1On3(data1, data2), 1000);
+                return;
             }
 
             thumbMethod(3, data1, data2, 't' + countTables);//
@@ -974,6 +1072,11 @@
                 //countTables * (i + 1)).toString() + i + i + (i + 1)
                 elementId = (countTables * 1).toString() + '001';
                 document.getElementById(elementId).appendChild(y);
+                countTables++;
+                data1.splice(0, 2);// remove the first 2 elements
+                data2.splice(0, 2);
+                setTimeout(draw1On2(data1, data2), 1000);
+                return;
             }
 
             if(data1[0] > data1[2] && data1[1] > data1[3]){
@@ -991,6 +1094,11 @@
                 //countTables * (i + 1)).toString() + i + i + (i + 1)
                 elementId = (countTables * 2).toString() + '112';
                 document.getElementById(elementId).appendChild(y);
+                countTables++;
+                data1.splice(2, 2);// remove the first 2 elements
+                data2.splice(2, 2);
+                setTimeout(draw1On2(data1, data2), 1000);
+                return;
             }
 
             if(data2[0] < data2[1] && data2[2] < data2[3]){
@@ -1008,6 +1116,13 @@
                 //
                 elementId = (countTables * 2).toString() + '111';
                 document.getElementById(elementId).appendChild(y);
+                countTables++;
+                data1.splice(0, 1);// remove 2 elements
+                data1.splice(1, 1);
+                data2.splice(0, 1);
+                data2.splice(1, 1);
+                setTimeout(draw2On1(data1, data2), 1000);
+                return;
             }
 
             if(data2[0] > data2[1] && data2[2] > data2[3]){
@@ -1025,6 +1140,13 @@
                 //
                 elementId = (countTables * 2).toString() + '112';
                 document.getElementById(elementId).appendChild(y);
+                countTables++;
+                data1.splice(1, 1);// remove 2 elements
+                data1.splice(2, 1);
+                data2.splice(1, 1);
+                data2.splice(2, 1);
+                setTimeout(draw2On1(data1, data2), 1000);
+                return;
             }
             
             thumbMethod(4, data1, data2, 't' + countTables);//
@@ -1735,23 +1857,28 @@
             }
             
             
-
+            console.log('countTables:', countTables);
             for(i = 1 ; i < countTables; i++){
-                document.body.removeChild(document.getElementById('t' + i));       
+                var t = document.body.removeChild(document.getElementById('t' + i));
+                console.log('what happpend:',t);       
             }
-
             countTables = 1;
+            console.log('Updated countTables:', countTables);
 
-            setTimeout(() => {
+            //setTimeout(() => {
                 draw3On3(data11, data12);
-                setTimeout(() => {// need to change from draw to edit
-                    draw3On2([data11[0], data11[1], data11[2], data11[3], data11[4], data11[5]], [data12[0], data12[1], data12[2], data12[3], data12[4], data12[5]]);
-                    setTimeout(() => {
-                        draw2On3([data11[0], data11[1], data11[2], data11[3], data11[4], data11[5]], [data12[0], data12[1], data12[2], data12[3], data12[4], data12[5]])
-                        draw2On2([data11[0], data11[1], data11[2], data11[3]], [data12[0], data12[1], data12[2], data12[3]]);
-                    }, 2000);
-                }, 2000);
-            }, 2000);
+            //}, 2000);
+
+            // setTimeout(() => {
+            //     draw3On3(data11, data12);
+            //     setTimeout(() => {// need to change from draw to edit
+            //         draw3On2([data11[0], data11[1], data11[2], data11[3], data11[4], data11[5]], [data12[0], data12[1], data12[2], data12[3], data12[4], data12[5]]);
+            //         setTimeout(() => {
+            //             draw2On3([data11[0], data11[1], data11[2], data11[3], data11[4], data11[5]], [data12[0], data12[1], data12[2], data12[3], data12[4], data12[5]])
+            //             draw2On2([data11[0], data11[1], data11[2], data11[3]], [data12[0], data12[1], data12[2], data12[3]]);
+            //         }, 2000);
+            //     }, 2000);
+            // }, 2000);
 
             //removeDominatedStrategies(-1, data11, data12);
 
