@@ -56,6 +56,9 @@
             display: inline-block;
             width: 4%;
         }
+        #inline:hover {
+            width: 10%;
+        }
         #but1 {
             background-color: #555555;
             border: none;
@@ -67,6 +70,9 @@
             font-size: 16px;
             margin: 8px 2px;
             cursor: pointer;
+        }
+        #but1:active {
+            background: yellowgreen no-repeat;
         }
         #hi2 {
             color: aqua;
@@ -102,6 +108,34 @@
                 -ms-transform: translate(0px,-20vh); /* IE 9 */
                 -webkit-transform: translate(0px,-20vh); /* Safari */
                 transform: translate(0px,-20vh); /* Standard syntax */
+            }
+
+            #inline {
+            margin: 5px;
+            display: inline-block;
+            width: 40px;
+            }
+            #inline:hover {
+                width: 20%;
+            }
+        }
+
+        @media only screen and (max-width: 500px) {
+            .rowx, .colu, .col {
+                font-size: 2.8vh;  
+            }
+
+            .x {
+                opacity: 0.75;
+                -ms-transform: scale(0.5,0.5); /* IE 9 */
+                -webkit-transform: scale(0.5,0.5); /* Safari */
+                transform: scale(0.5,0.5); /* Standard syntax */
+                -ms-transform: translate(0px,-16vh); /* IE 9 */
+                -webkit-transform: translate(0px,-16vh); /* Safari */
+                transform: translate(0px,-16vh); /* Standard syntax */
+            }
+            #inline:hover {
+                width: 25%;
             }
         }
 
@@ -164,8 +198,6 @@
                 document.getElementById('0' + (i+1)).appendChild(textnode2);// add a number to a div 
                 document.getElementById('0' + (i+1)).appendChild(span2);// add a number to a div 
             }
-
-            //thumbMethod(1, data1, data2, 't' + countTables);//
 
             countTables++;
 
