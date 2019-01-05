@@ -124,36 +124,22 @@
 <!-- style="width:380px" for each sub-div -->
 
 <div id="t0" class="row">
-    <div id="01" class="rowx colu col-xs-4" onclick="cellOnclick1('1')"></div>
-    <div id="02" class="rowx colu col-xs-4" onclick="cellOnclick1('2')"></div>
-    <div id="03" class="rowx col" onclick="cellOnclick1('3')"></div>
+    <div id="01" class="rowx colu col-xs-4" ></div>
+    <div id="02" class="rowx colu col-xs-4" ></div>
+    <div id="03" class="rowx col" ></div>
 
-	<div id="04" class="rowx colu col-xs-4" onclick="cellOnclick1('4')"></div>
-    <div id="05" class="rowx colu col-xs-4" onclick="cellOnclick1('5')"></div>
-    <div id="06" class="rowx col" onclick="cellOnclick1('6')"></div>
+	<div id="04" class="rowx colu col-xs-4" ></div>
+    <div id="05" class="rowx colu col-xs-4" ></div>
+    <div id="06" class="rowx col" ></div>
 
-   	<div id="07" class="colu col-xs-4" onclick="cellOnclick1('7')"></div>
-    <div id="08" class="colu col-xs-4" onclick="cellOnclick1('8')"></div>
-    <div id="09" class="col" onclick="cellOnclick1('9')"></div>
+   	<div id="07" class="colu col-xs-4" ></div>
+    <div id="08" class="colu col-xs-4" ></div>
+    <div id="09" class="col" ></div>
     
 </div>
 
-
-    <!--<div class="row">
-        <div class="col-xs-12">-->
-            <!--<table id="t2">
-                <tr>
-                    <th style="padding-right: 6px; padding-left: 6px;">Player<br />X</th>
-                    <th style="padding-right: 6px; padding-left: 6px;">Player<br />O</th>
-                </tr>
-                <tr>
-                    <td style="padding-right: 6px; padding-left: 6px; border: dotted; color: green; border-color: black;">0</td>
-                    <td style="padding-right: 6px; padding-left: 6px; border: dotted; color: green; border-color: black;">0</td>
-                </tr>
-            </table>-->
-        <!--</div>
-    </div>-->
     <script type="text/javascript">
+        var timing;
         var data1 = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
         Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
         Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
@@ -183,29 +169,10 @@
 
             countTables++;
 
-            setTimeout(() => {
+            timing = setTimeout(() => {
                 draw3On3(data1, data2);
             }, 2000);
-
-            // setTimeout(() => {
-            //     draw3On3(data1, data2);
-            //     setTimeout(() => {
-            //         draw3On2([data1[0], data1[1], data1[2], data1[3], data1[4], data1[5]], [data2[0], data2[1], data2[2], data2[3], data2[4], data2[5]]);
-            //         setTimeout(() => {
-            //             draw2On3([data1[0], data1[1], data1[2], data1[3], data1[4], data1[5]], [data2[0], data2[1], data2[2], data2[3], data2[4], data2[5]]);
-            //             draw2On2([data1[0], data1[1], data1[2], data1[3]], [data2[0], data2[1], data2[2], data2[3]]);
-            //             draw3On1([data1[0], data1[1], data1[2]], [data2[0], data2[1], data2[2]]);
-            //             draw1On3([data1[0], data1[1], data1[2]], [data2[0], data2[1], data2[2]]);
-            //             draw2On1([data1[0], data1[1]], [data2[0], data2[1]]);
-            //             draw1On2([data1[0], data1[1]], [data2[0], data2[1]]);
-            //         }, 2000);
-            //     }, 2000);
-            // }, 2000);
-
-            //removeDominatedStrategies(-1);
-
             
-
         }
         
         function draw3On3(data1, data2){
@@ -239,10 +206,6 @@
             countTables++;
             removeDominatedStrategies(-1, data1, data2);
         }
-
-        //draw2On3([data1[0], data1[1], data1[2], data1[3], data1[4], data1[5]], [data2[0], data2[1], data2[2], data2[3], data2[4], data2[5]]);
-        
-        //draw3On2([data1[0], data1[1], data1[2], data1[3], data1[4], data1[5]], [data2[0], data2[1], data2[2], data2[3], data2[4], data2[5]]);
 
         var countThisTbl = 0;
 
@@ -538,7 +501,7 @@
                     document.getElementById(3).appendChild(z);// add a pic to a div 
                     data1.splice(0, 3);// remove the first 3 elements
                     data2.splice(0, 3);
-                    setTimeout(draw2On3(data1, data2), 1000);
+                    timing = setTimeout(draw2On3(data1, data2), 1000);
                     return;
             }
 
@@ -565,7 +528,7 @@
                     data2.splice(0, 1);
                     data2.splice(2, 1);
                     data2.splice(4, 1);
-                    setTimeout(draw3On2(data1, data2), 1000);
+                    timing = setTimeout(draw3On2(data1, data2), 1000);
                     return;
             }
 
@@ -588,7 +551,7 @@
                     document.getElementById(6).appendChild(z);// add a pic to a div 
                     data1.splice(3, 3);// remove the first 3 elements
                     data2.splice(3, 3);
-                    setTimeout(draw2On3(data1, data2), 1000);
+                    timing = setTimeout(draw2On3(data1, data2), 1000);
                     return;
             }
 
@@ -615,7 +578,7 @@
                 data2.splice(1, 1);
                 data2.splice(3, 1);
                 data2.splice(5, 1);
-                setTimeout(draw3On2(data1, data2), 1000);
+                timing = setTimeout(draw3On2(data1, data2), 1000);
                 return;
             }
 
@@ -638,7 +601,7 @@
                 document.getElementById(9).appendChild(z);// add a pic to a div 
                 data1.splice(6, 3);// remove the first 3 elements
                 data2.splice(6, 3);
-                setTimeout(draw2On3(data1, data2), 1000);
+                timing = setTimeout(draw2On3(data1, data2), 1000);
                 return;
             }
 
@@ -665,7 +628,7 @@
                 data2.splice(2, 1);
                 data2.splice(4, 1);
                 data2.splice(6, 1);
-                setTimeout(draw3On2(data1, data2), 1000);
+                timing = setTimeout(draw3On2(data1, data2), 1000);
                 return;
             }
             console.log(countTables - 1);
@@ -704,7 +667,7 @@
                 countTables++;
                 data1.splice(0, 2);// remove the first 2 elements
                 data2.splice(0, 2);
-                setTimeout(draw2On2(data1, data2), 1000);
+                timing = setTimeout(draw2On2(data1, data2), 1000);
                 return;
             }
 
@@ -734,7 +697,7 @@
                 countTables++;
                 data1.splice(2, 2);// remove the first 2 elements
                 data2.splice(2, 2);
-                setTimeout(draw2On2(data1, data2), 1000);
+                timing = setTimeout(draw2On2(data1, data2), 1000);
                 return;
             }
 
@@ -764,7 +727,7 @@
                 countTables++;
                 data1.splice(4, 2);// remove the first 2 elements
                 data2.splice(4, 2);
-                setTimeout(draw2On2(data1, data2), 1000);
+                timing = setTimeout(draw2On2(data1, data2), 1000);
                 return;
             }
 
@@ -809,7 +772,7 @@
                 data2.splice(0, 1);
                 data2.splice(1, 1);
                 data2.splice(2, 1);
-                setTimeout(draw3On1(data1, data2), 1000);
+                timing = setTimeout(draw3On1(data1, data2), 1000);
                 return;
             }
 
@@ -854,7 +817,7 @@
                 data2.splice(1, 1);
                 data2.splice(2, 1);
                 data2.splice(3, 1);
-                setTimeout(draw3On1(data1, data2), 1000);
+                timing = setTimeout(draw3On1(data1, data2), 1000);
                 return;
             }
 
@@ -896,7 +859,7 @@
                 data1.splice(2, 1);
                 data2.splice(0, 1);
                 data2.splice(2, 1);
-                setTimeout(draw2On2(data1, data2), 1000);
+                timing = setTimeout(draw2On2(data1, data2), 1000);
                 return;
             }
 
@@ -928,7 +891,7 @@
                 data1.splice(3, 1);
                 data2.splice(1, 1);
                 data2.splice(3, 1);
-                setTimeout(draw2On2(data1, data2), 1000);
+                timing = setTimeout(draw2On2(data1, data2), 1000);
                 return;
             }
 
@@ -960,7 +923,7 @@
                 data1.splice(4, 1);
                 data2.splice(2, 1);
                 data2.splice(4, 1);
-                setTimeout(draw2On2(data1, data2), 1000);
+                timing = setTimeout(draw2On2(data1, data2), 1000);
                 return;
             }
 
@@ -1001,7 +964,7 @@
                 countTables++;
                 data1.splice(0, 3);// remove the first 3 elements
                 data2.splice(0, 3);
-                setTimeout(draw1On3(data1, data2), 1000);
+                timing = setTimeout(draw1On3(data1, data2), 1000);
                 return;
             }
 
@@ -1042,7 +1005,7 @@
                 countTables++;
                 data1.splice(3, 3);// remove the first 3 elements
                 data2.splice(3, 3);
-                setTimeout(draw1On3(data1, data2), 1000);
+                timing = setTimeout(draw1On3(data1, data2), 1000);
                 return;
             }
 
@@ -1075,7 +1038,7 @@
                 countTables++;
                 data1.splice(0, 2);// remove the first 2 elements
                 data2.splice(0, 2);
-                setTimeout(draw1On2(data1, data2), 1000);
+                timing = setTimeout(draw1On2(data1, data2), 1000);
                 return;
             }
 
@@ -1097,7 +1060,7 @@
                 countTables++;
                 data1.splice(2, 2);// remove the first 2 elements
                 data2.splice(2, 2);
-                setTimeout(draw1On2(data1, data2), 1000);
+                timing = setTimeout(draw1On2(data1, data2), 1000);
                 return;
             }
 
@@ -1121,7 +1084,7 @@
                 data1.splice(1, 1);
                 data2.splice(0, 1);
                 data2.splice(1, 1);
-                setTimeout(draw2On1(data1, data2), 1000);
+                timing = setTimeout(draw2On1(data1, data2), 1000);
                 return;
             }
 
@@ -1145,7 +1108,7 @@
                 data1.splice(2, 1);
                 data2.splice(1, 1);
                 data2.splice(2, 1);
-                setTimeout(draw2On1(data1, data2), 1000);
+                timing = setTimeout(draw2On1(data1, data2), 1000);
                 return;
             }
             
@@ -1833,6 +1796,7 @@
         }
 
         function reset() {// reset all the flags
+            clearTimeout(timing);
             var data11 = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
             Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
             Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
@@ -1865,24 +1829,9 @@
             countTables = 1;
             console.log('Updated countTables:', countTables);
 
-            setTimeout(() => {
+            timing = timing = setTimeout(() => {
                 draw3On3(data11, data12);
             }, 2000);
-
-            // setTimeout(() => {
-            //     draw3On3(data11, data12);
-            //     setTimeout(() => {// need to change from draw to edit
-            //         draw3On2([data11[0], data11[1], data11[2], data11[3], data11[4], data11[5]], [data12[0], data12[1], data12[2], data12[3], data12[4], data12[5]]);
-            //         setTimeout(() => {
-            //             draw2On3([data11[0], data11[1], data11[2], data11[3], data11[4], data11[5]], [data12[0], data12[1], data12[2], data12[3], data12[4], data12[5]])
-            //             draw2On2([data11[0], data11[1], data11[2], data11[3]], [data12[0], data12[1], data12[2], data12[3]]);
-            //         }, 2000);
-            //     }, 2000);
-            // }, 2000);
-
-            //removeDominatedStrategies(-1, data11, data12);
-
-            
 
         }
         
