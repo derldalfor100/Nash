@@ -1834,6 +1834,10 @@
         function reset() {// reset all the flags
             clearTimeout(timing);
             disableScrolling();
+            document.getElementById("but1").disabled = true; 
+            setTimeout(() => {// disable the button for 0.2 sec
+                document.getElementById("but1").disabled = false; 
+            }, 200);
             var data11 = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
             Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
             Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
