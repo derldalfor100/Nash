@@ -177,6 +177,17 @@
         var countTables = 0;//
 
         var i;
+
+        function disableScrolling(){
+            var x = window.scrollX;
+            var y = window.scrollY;
+            window.onscroll= () => {window.scrollTo(x, y);};
+        }
+
+        function enableScrolling(){
+            window.onscroll = () => {};
+        }
+
         window.onload = () => {
 
             for(i = 0 ; i < data1.length; i++){
@@ -1822,6 +1833,7 @@
 
         function reset() {// reset all the flags
             clearTimeout(timing);
+            disableScrolling();
             var data11 = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
             Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10),
             Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
@@ -1844,18 +1856,15 @@
                 document.getElementById('0' + (i+1)).appendChild(textnode2);// add a number to a div 
                 document.getElementById('0' + (i+1)).appendChild(span2);// add a number to a div 
             }
-            
-            
-            console.log('countTables:', countTables);
-            for(i = 1 ; i < countTables; i++){
-                var t = document.body.removeChild(document.getElementById('t' + i));
-                console.log('what happpend:',t);       
-            }
-            countTables = 1;
-            console.log('Updated countTables:', countTables);
 
             timing = setTimeout(() => {
+                for(i = 1 ; i < countTables; i++){
+                var t = document.body.removeChild(document.getElementById('t' + i));
+                console.log('what happpend:',t);       
+                }
+                countTables = 1;
                 draw3On3(data11, data12);
+                enableScrolling();
             }, 2000);
 
         }
