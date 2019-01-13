@@ -537,7 +537,7 @@
                     document.getElementById(3).appendChild(z);// add a pic to a div 
                     data1.splice(0, 3);// remove the first 3 elements
                     data2.splice(0, 3);
-                    timing = setTimeout(draw2On3(data1, data2), 1000);
+                    timing = setTimeout( () =>{draw2On3(data1, data2)}, 1000);
                     return;
             }
 
@@ -564,7 +564,7 @@
                     data2.splice(0, 1);
                     data2.splice(2, 1);
                     data2.splice(4, 1);
-                    timing = setTimeout(draw3On2(data1, data2), 1000);
+                    timing = setTimeout( () =>{draw3On2(data1, data2)}, 1000);
                     return;
             }
 
@@ -587,7 +587,7 @@
                     document.getElementById(6).appendChild(z);// add a pic to a div 
                     data1.splice(3, 3);// remove the first 3 elements
                     data2.splice(3, 3);
-                    timing = setTimeout(draw2On3(data1, data2), 1000);
+                    timing = setTimeout( () =>{draw2On3(data1, data2)}, 1000);
                     return;
             }
 
@@ -614,7 +614,7 @@
                 data2.splice(1, 1);
                 data2.splice(3, 1);
                 data2.splice(5, 1);
-                timing = setTimeout(draw3On2(data1, data2), 1000);
+                timing = setTimeout( () =>{draw3On2(data1, data2)}, 1000);
                 return;
             }
 
@@ -637,7 +637,7 @@
                 document.getElementById(9).appendChild(z);// add a pic to a div 
                 data1.splice(6, 3);// remove the first 3 elements
                 data2.splice(6, 3);
-                timing = setTimeout(draw2On3(data1, data2), 1000);
+                timing = setTimeout( () =>{draw2On3(data1, data2)}, 1000);
                 return;
             }
 
@@ -664,7 +664,7 @@
                 data2.splice(2, 1);
                 data2.splice(4, 1);
                 data2.splice(6, 1);
-                timing = setTimeout(draw3On2(data1, data2), 1000);
+                timing = setTimeout( () =>{draw3On2(data1, data2)}, 1000);
                 return;
             }
             console.log(countTables - 1);
@@ -703,7 +703,7 @@
                 countTables++;
                 data1.splice(0, 2);// remove the first 2 elements
                 data2.splice(0, 2);
-                timing = setTimeout(draw2On2(data1, data2), 1000);
+                draw2On2(data1, data2);
                 return;
             }
 
@@ -733,7 +733,7 @@
                 countTables++;
                 data1.splice(2, 2);// remove the first 2 elements
                 data2.splice(2, 2);
-                timing = setTimeout(draw2On2(data1, data2), 1000);
+                draw2On2(data1, data2);
                 return;
             }
 
@@ -763,7 +763,7 @@
                 countTables++;
                 data1.splice(4, 2);// remove the first 2 elements
                 data2.splice(4, 2);
-                timing = setTimeout(draw2On2(data1, data2), 1000);
+                draw2On2(data1, data2);
                 return;
             }
 
@@ -808,7 +808,7 @@
                 data2.splice(0, 1);
                 data2.splice(1, 1);
                 data2.splice(2, 1);
-                timing = setTimeout(draw3On1(data1, data2), 1000);
+                draw3On1(data1, data2);
                 return;
             }
 
@@ -853,7 +853,7 @@
                 data2.splice(1, 1);
                 data2.splice(2, 1);
                 data2.splice(3, 1);
-                timing = setTimeout(draw3On1(data1, data2), 1000);
+                draw3On1(data1, data2);
                 return;
             }
 
@@ -895,7 +895,7 @@
                 data1.splice(2, 1);
                 data2.splice(0, 1);
                 data2.splice(2, 1);
-                timing = setTimeout(draw2On2(data1, data2), 1000);
+                draw2On2(data1, data2);
                 return;
             }
 
@@ -927,7 +927,7 @@
                 data1.splice(3, 1);
                 data2.splice(1, 1);
                 data2.splice(3, 1);
-                timing = setTimeout(draw2On2(data1, data2), 1000);
+                draw2On2(data1, data2);
                 return;
             }
 
@@ -959,7 +959,7 @@
                 data1.splice(4, 1);
                 data2.splice(2, 1);
                 data2.splice(4, 1);
-                timing = setTimeout(draw2On2(data1, data2), 1000);
+                draw2On2(data1, data2);
                 return;
             }
 
@@ -1000,7 +1000,7 @@
                 countTables++;
                 data1.splice(0, 3);// remove the first 3 elements
                 data2.splice(0, 3);
-                timing = setTimeout(draw1On3(data1, data2), 1000);
+                draw1On3(data1, data2);
                 return;
             }
 
@@ -1041,7 +1041,7 @@
                 countTables++;
                 data1.splice(3, 3);// remove the first 3 elements
                 data2.splice(3, 3);
-                timing = setTimeout(draw1On3(data1, data2), 1000);
+                draw1On3(data1, data2);
                 return;
             }
 
@@ -1074,7 +1074,7 @@
                 countTables++;
                 data1.splice(0, 2);// remove the first 2 elements
                 data2.splice(0, 2);
-                timing = setTimeout(draw1On2(data1, data2), 1000);
+                draw1On2(data1, data2);
                 return;
             }
 
@@ -1096,7 +1096,7 @@
                 countTables++;
                 data1.splice(2, 2);// remove the first 2 elements
                 data2.splice(2, 2);
-                timing = setTimeout(draw1On2(data1, data2), 1000);
+                draw1On2(data1, data2);
                 return;
             }
 
@@ -1120,7 +1120,7 @@
                 data1.splice(1, 1);
                 data2.splice(0, 1);
                 data2.splice(1, 1);
-                timing = setTimeout(draw2On1(data1, data2), 1000);
+                draw2On1(data1, data2);
                 return;
             }
 
@@ -1144,7 +1144,7 @@
                 data1.splice(2, 1);
                 data2.splice(1, 1);
                 data2.splice(2, 1);
-                timing = setTimeout(draw2On1(data1, data2), 1000);
+                draw2On1(data1, data2);
                 return;
             }
             
